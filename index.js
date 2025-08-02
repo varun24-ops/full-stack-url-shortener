@@ -28,6 +28,9 @@ app.route('/api/shorturl').post(
     const url = req.body.url;
     const dns = require('dns');
     const urlParser = require('url');
+      if (!urlParser.parse(url).hostname) {
+    res.json({ error: "invalid url" });
+  }
 dns.lookup(urlParser.parse(url).hostname, (err, address) =>{
       if(err){
         res.json({error: 'invalid url'});
